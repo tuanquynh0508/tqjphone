@@ -1,0 +1,50 @@
+.tqjphone-country-input {
+    position: relative;
+}
+.tqjphone-country-code {
+    width: 60px !important;
+    cursor: pointer !important;
+    display: inline-block;
+    margin-right: 5px;
+    text-align: left;
+    padding: 3px 5px !important;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAAcUlEQVQ4je3OuwmDYBSG4QccwcqAhcQVzAAuoHuYUbJFVrGyMU0wTXax+QWLeIOUvnCa73LO4eTvPHFd8fOQWeSGAdkPL8MHxdYXJd5IZtolaOVWeaJGjzjMC9Xe8sQdbZhmKRStLOiQ4ovH0esnBxgBnaUNYXCL7A8AAAAASUVORK5CYII=') no-repeat 98% 50%;
+}
+.tqjphone-country-list {
+    position: absolute;
+    width: 250px;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    border: 1px solid #ccc;
+    overflow: auto;
+    font-family: sans-serif, Arial;
+    font-size: 14px;
+    color: #222;
+    background-color: #fff;
+    z-index: 99999;
+    display: none;
+    font-weight: bold;
+    box-shadow:1px 1px 4px rgba(0,0,0,0.2);
+}
+.tqjphone-country-list li {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+    line-height: 18px;
+}
+.tqjphone-country-list li:hover,
+.tqjphone-country-list li.active {
+    background-color: #F26E01;
+    color: #fff;
+}
+.tqjphone-country-list li small {
+    display: block;
+    font-weight: normal;
+}
+.tqjphone-country-phone-invalid {
+    border-color: red;
+}
