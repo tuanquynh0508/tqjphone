@@ -1,5 +1,5 @@
 /*
-*   jQuery Phone version 2.1
+*   jQuery Phone version 2.2
 *
 *   Demo's and documentation:
 *   https://github.com/tuanquynh0508/tqjphone
@@ -27,6 +27,9 @@
         init: init,
         setval: setValue,
         getval: getValue,
+        getRegionCode: getValue,
+        getCountryCode: getValue,
+        getNational: getValue,
         validate: validate,
         clearval: clearValue,
         disabled: disabledInput,
@@ -57,17 +60,40 @@
         setPhoneValue(defaultCode, val, holder);
     }
 
-    function getValue() {
+    function getValue(type) {
+        buildNumber = '';
+        var typeValue = 'full';
         var parent = $(this).closest('.tqjphone-country-input');
-        var val = $('.tqjphone-country-code', parent).val();
-        val += $('.tqjphone-country-phone', parent).val();
+        var phoneNumber = $('.tqjphone-country-phone', parent).val();
+        var regionCode = $('.tqjphone-country-code', parent).attr('data-region');
 
-        var paresed = validatePhoneNumber(val);
-        if(null !== paresed) {
-            return '+' + paresed.countryCode + paresed.nationalNumber;
+        if(undefined !== type) {
+            typeValue = type;
         }
 
-        return '';
+        var paresed = validatePhoneNumber(phoneNumber, regionCode);
+        if(null !== paresed && true === paresed.isValidNumberForRegion) {
+            var buildNumber = '';
+            switch(type) {
+                case 'region_code':
+                    buildNumber = paresed.regionCode;
+                    break;
+                case 'country_code':
+                    buildNumber = '+' + paresed.countryCode;
+                    break;
+                case 'national':
+                    buildNumber = paresed.nationalNumber;
+                    break;
+                case 'full':
+                    buildNumber = '+' + paresed.countryCode + paresed.nationalNumber;
+                    break;
+                default:
+                    buildNumber = '+' + paresed.countryCode + paresed.nationalNumber;
+                    break;
+            }
+        }
+
+        return buildNumber;
     }
 
     function clearValue() {
@@ -82,12 +108,12 @@
 
     function validate() {
         var parent = $(this).closest('.tqjphone-country-input');
-        var val = $('.tqjphone-country-code', parent).val();
-        val += $('.tqjphone-country-phone', parent).val();
+        var phoneNumber = $('.tqjphone-country-phone', parent).val();
+        var regionCode = $('.tqjphone-country-code', parent).attr('data-region');
 
-        var paresed = validatePhoneNumber(val);
+        var paresed = validatePhoneNumber(phoneNumber, regionCode);
 
-        if(null !== paresed) {
+        if(null !== paresed && true === paresed.isValidNumberForRegion) {
             $('.tqjphone-country-phone', parent).removeClass('tqjphone-country-phone-invalid');
             return true;
         } else {
@@ -166,8 +192,10 @@
         });
 
         $('.tqjphone-country-list li', holder).click(function(){
+            var regionCode = $(this).attr('data-code');
             var phoneCode = $(this).attr('data-phone-code');
             $('.tqjphone-country-code', holder).val('+'+phoneCode);
+            $('.tqjphone-country-code', holder).attr('data-region', regionCode);
             $('.tqjphone-country-list li', holder).removeClass('active');
             $(this).addClass('active');
             $('.tqjphone-country-list', holder).hide();
@@ -204,9 +232,11 @@
             var scrollTo = 0;
             $('.tqjphone-country-list li', holder).each(function(){
                 var code = $(this).attr('data-code');
+                var regionCode = $(this).attr('data-code');
                 var phoneCode = $(this).attr('data-phone-code');
                 if(defaultCode === code || (defaultCode == 'nothing' && countryCode === phoneCode)) {
                     $('.tqjphone-country-code', holder).val('+'+phoneCode);
+                    $('.tqjphone-country-code', holder).attr('data-region', regionCode);
                     $('.tqjphone-country-list li', holder).removeClass('active');
                     $(this).addClass('active');
                 }
@@ -214,15 +244,17 @@
         }
     }
 
-    function validatePhoneNumber(phoneNumber) {
+    function validatePhoneNumber(phoneNumber, regionCode) {
         try {
             var phoneUtil = i18n.phonenumbers.PhoneNumberUtil.getInstance();
-            var number = phoneUtil.parseAndKeepRawInput(phoneNumber, '');
+            var number = phoneUtil.parseAndKeepRawInput(phoneNumber, regionCode);
 
-            var isNumberValid = phoneUtil.isValidNumber(number);
+            var isPossible = phoneUtil.isPossibleNumber(number);
+            var isValidNumber = phoneUtil.isValidNumber(number);
+            var isValidNumberForRegion = phoneUtil.isValidNumberForRegion(number, regionCode);
             var regionCode = phoneUtil.getRegionCodeForNumber(number);
 
-            if(true === isNumberValid) {
+            if(true === isPossible) {
                 var parseNumber = new goog.proto2.ObjectSerializer(
                         goog.proto2.ObjectSerializer.KeyOption.NAME
                     ).serialize(number);
@@ -230,7 +262,9 @@
                     regionCode: regionCode.toLowerCase(),
                     countryCode: parseNumber.country_code,
                     nationalNumber: parseNumber.national_number,
-                    isNumberValid: isNumberValid
+                    isPossible: isPossible,
+                    isValidNumber: isValidNumber,
+                    isValidNumberForRegion: isValidNumberForRegion
                 };
 
                 return result;

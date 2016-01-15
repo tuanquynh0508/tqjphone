@@ -10,7 +10,7 @@ Usage
 <head>
 <meta charset="utf-8">
 <title>Nguyễn Như Tuấn</title>
-<link rel="stylesheet" href="js/jphone/jquery.jphone.v2.1.css">
+<link rel="stylesheet" href="js/jphone/jquery.jphone.css">
 </head>
 
 <body>
@@ -20,8 +20,14 @@ Usage
 <input type="text" class="phone-input" id="vidu1" value="+840903258221" />
 
 <p>
-    <button type="button" id="btnClearValue">Clear Value</button> |
     <button type="button" id="btnGetValue">Get Value</button> |
+    <button type="button" id="btnGetRegion">Get Region code</button> |
+    <button type="button" id="btnGetCountryCode">Get Country code</button> |
+    <button type="button" id="btnGetNational">Get National number</button>
+</p>
+
+<p>
+    <button type="button" id="btnClearValue">Clear Value</button> |
     <button type="button" id="btnSetValue">Set Value</button> |
     <button type="button" id="btnValidate">Validate</button> |
     <button type="button" id="btnDisabled">Disabled</button> |
@@ -42,7 +48,7 @@ Usage
 <script src="js/jphone/phonenumbers/metadata.js"></script>
 <script src="js/jphone/phonenumbers/phonenumberutil.js"></script>
 <script src="js/jphone/phonenumbers/asyoutypeformatter.js"></script>
-<script src="js/jphone/jquery.jphone.v2.1.js"></script>
+<script src="js/jphone/jquery.jphone.js"></script>
 <script>
     jQuery('.phone-input').tqjphone({
         defaultCode: 'vn',
@@ -58,6 +64,21 @@ Usage
 
     $("#btnGetValue").click(function(e){
         var val = jQuery('#vidu1').tqjphone('getval');
+        alert(val);
+    });
+
+    $("#btnGetRegion").click(function(e){
+        var val = jQuery('#vidu1').tqjphone('getval', 'region_code');
+        alert(val);
+    });
+
+    $("#btnGetCountryCode").click(function(e){
+        var val = jQuery('#vidu1').tqjphone('getval', 'country_code');
+        alert(val);
+    });
+
+    $("#btnGetNational").click(function(e){
+        var val = jQuery('#vidu1').tqjphone('getval', 'national');
         alert(val);
     });
 
