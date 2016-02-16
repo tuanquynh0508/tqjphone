@@ -1,0 +1,27 @@
+{
+  "name": "tqjphone",
+  "version": "0.0.1",
+  "authors": [
+    "Nguyen Nhu Tuan <tuanquynh0508@gmail.com>"
+  ],
+  "description": "TuanQuynh Input Phone Number",
+  "moduleType": [
+    "yui"
+  ],
+  "license": "MIT",
+  "homepage": "http://i-designer.net",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "private": true,
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "libphonenumber": "~0.9.4"
+  },
+  "devDependencies": {}
+}

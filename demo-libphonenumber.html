@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Nguyễn Như Tuấn</title>
+</head>
+
+<body>
+
+<h1>Demo Lib phone number</h1>
+<script src="vendor/libphonenumber/dist/libphonenumber.js"></script>
+<script src="vendor/libphonenumber/dist/libphonenumber_VN.js"></script>
+<script src="vendor/libphonenumber/dist/libphonenumber_CH.js"></script>
+<script>
+    //var phoneNumber = '+840903258221';
+    var phoneNumber = '+41446681800';
+    var regionCode = 'vn';
+
+    //Test Libs
+    //phoneUtils.countryCodeToRegionCodeMap();
+    var isPossibleNumber = phoneUtils.isPossibleNumber(phoneNumber, regionCode);
+    console.log('isPossibleNumber: ' + isPossibleNumber);
+
+    var isPossibleNumberWithReason = phoneUtils.isPossibleNumberWithReason(phoneNumber, regionCode);
+    console.log('isPossibleNumberWithReason: ' + isPossibleNumberWithReason);
+
+    var isValidNumber = phoneUtils.isValidNumber(phoneNumber, regionCode);
+    console.log('isValidNumber: ' + isValidNumber);
+
+    var isValidNumberForRegion = phoneUtils.isValidNumberForRegion(phoneNumber, regionCode);
+    console.log('isValidNumberForRegion: ' + isValidNumberForRegion);
+
+    var getCountryCodeForRegion = phoneUtils.getCountryCodeForRegion(regionCode);
+    console.log('getCountryCodeForRegion: ' + getCountryCodeForRegion);
+
+    var getRegionCodeForNumber = phoneUtils.getRegionCodeForNumber(phoneNumber, regionCode);
+    console.log('getRegionCodeForNumber: ' + getRegionCodeForNumber);
+
+    var getNumberType = phoneUtils.getNumberType(phoneNumber, regionCode);
+    console.log('getNumberType: ' + getNumberType);
+
+    //phoneUtils.getSupportedRegions();
+
+    var formatE164 = phoneUtils.formatE164(phoneNumber, regionCode);
+    console.log('formatE164: ' + formatE164);
+
+    var formatNational = phoneUtils.formatNational(phoneNumber, regionCode);
+    console.log('formatNational: ' + formatNational);
+
+    var formatInternational = phoneUtils.formatInternational(phoneNumber, regionCode);
+    console.log('formatInternational: ' + formatInternational);
+
+    var formatInOriginalFormat = phoneUtils.formatInOriginalFormat(phoneNumber, regionCode);
+    console.log('formatInOriginalFormat: ' + formatInOriginalFormat);
+
+    //phoneUtils.formatOutOfCountryCallingNumber(phoneNumber, regionCode, target);
+</script>
+</body>
+</html>
