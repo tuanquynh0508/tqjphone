@@ -1,6 +1,11 @@
 # tqjphone
 Jquery Phone Number Input
 
+ScreenShot
+=====
+
+![TQPhone ScreenShot](https://raw.githubusercontent.com/tuanquynh0508/tqjphone/master/demo.png)
+
 Usage
 =====
 
