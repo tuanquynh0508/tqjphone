@@ -1,5 +1,5 @@
 /*
-*   jQuery Phone version 2.2
+*   jQuery Phone version 2.3
 *
 *   Demo's and documentation:
 *   https://github.com/tuanquynh0508/tqjphone
@@ -72,7 +72,7 @@
         }
 
         var paresed = validatePhoneNumber(phoneNumber, regionCode);
-        if(null !== paresed && true === paresed.isValidNumberForRegion) {
+        if(null !== paresed && true === paresed.isValidNumber) {
             var buildNumber = '';
             switch(type) {
                 case 'region_code':
@@ -113,7 +113,7 @@
 
         var paresed = validatePhoneNumber(phoneNumber, regionCode);
 
-        if(null !== paresed && true === paresed.isValidNumberForRegion) {
+        if(null !== paresed && true === paresed.isValidNumber) {
             $('.tqjphone-country-phone', parent).removeClass('tqjphone-country-phone-invalid');
             return true;
         } else {
@@ -220,7 +220,7 @@
 
     function setPhoneValue(defaultCode, phoneNumber, holder) {
         var countryCode = 0;
-        var paresed = validatePhoneNumber(phoneNumber);
+        var paresed = validatePhoneNumber(phoneNumber, defaultCode);
 
         if(null !== paresed) {
             defaultCode = paresed.regionCode;
